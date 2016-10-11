@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#Register instances from load balancer
 aws autoscaling update-auto-scaling-group --auto-scaling-group-name ITMO444-hw4 --min-size 0 --max-size 0 --desired-capacity 0
 
 # De-register the instances form the load balancer
