@@ -2,10 +2,10 @@
 
 aws autoscaling update-auto-scaling-group --auto-scaling-group-name ITMO444-hw4 --min-size 0 --max-size 0 --desired-capacity 0
 
-ID=$(aws ec2 describe-instances | awk {'print $5'} | grep 'i-0*')
+ID=aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Placement.AvailabilityZone,State.Name,InstanceId]' | grep -E 'running|pending'| awk '{print $5}'
 
 #De-register instances
-aws elb deregister-instances-from-load-balancer --load-balancer-name ITMO-444-sudu --instances $ID
+#aws elb deregister-instances-from-load-balancer --load-balancer-name ITMO-444-sudu --instances $ID
 echo "De-registring the load balancer please wait....."
 sleep 10
 echo "Load balancer is de-registered."
