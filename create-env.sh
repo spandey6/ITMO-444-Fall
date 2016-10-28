@@ -13,6 +13,11 @@ else
 echo "All the parameters are preseent."
 fi
 
+# Run instances 
+aws ec2 run-instances --image-id $1 --key-name $2 --security-group-ids $3 --instance-type t2.micro --count $5 --user-data file://installenv.sh
+wait
+echo "Instance created"
+
 #Create Load balancer
 aws elb create-load-balancer --load-balancer-name ITMO-444-sudu --listeners Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80 --availability-zones us-west-2b
 echo "Load Balancer is Created"
