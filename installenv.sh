@@ -7,8 +7,5 @@ sudo apt-get -y install apache2
 sudo systemctl enable apache2
 sudo systemctl start apache2
 
-cd /home/ubuntu
-sudo git clone https://github.com/jhajek/boostrap-website
-sudo mv /home/ubuntu/boostrap-website/* /var/www/html
-
-
+cd /home/ubuntu/spandey6
+git clone git@github.com:illonois-itm/spandey6.git
