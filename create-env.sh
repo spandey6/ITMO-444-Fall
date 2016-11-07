@@ -14,7 +14,7 @@ echo "All the parameters are preseent."
 fi
 
 # Run instances 
-aws ec2 run-instances --image-id $1 --key-name $2 --security-group-ids $3 --instance-type t2.micro --count $1 --user-data file://installenv.sh
+aws ec2 run-instances --image-id $1 --key-name $2 --security-group-ids $3 --instance-type t2.micro --count $1 --user-data file://installenv.sh --placement AvailabilityZone=us-west-2b --iam-instance-profile Name=developer
 wait
 echo "Instance created"
 
@@ -29,12 +29,4 @@ echo "Launch configuration is created."
 # Creating autoscaling group
 aws autoscaling create-auto-scaling-group --auto-scaling-group-name $7 --launch-configuration $4 --availability-zone us-west-2b --load-balancer-name $6 --max-size 5 --min-size 1 --desired-capacity $5
 echo "Auto-scaling group is created."
-
-#creting sns topic
-aws sns create-topic --name sudu
-echo "sns topic created"
-
-#Subscribing sns topic
-aws sns subscribe --topic -arn arn:aws:sns:us-west-2:839071323477:sudu --protocol sms --notification-endpoint 7735171580
-
 echo "Done"
