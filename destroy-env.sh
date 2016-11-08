@@ -9,37 +9,34 @@ echo "Auto Scaling Group Name: " $autoscaling_group
 launch_confiuration='aws autoscaling describe-launch-configurations --query 'LaunchConfigurations[*].LaunchConfigurationName''
 echo "Launch Confiuragration Name: " $launch_configuration
 
+# De-register the instances form the load balancer
+aws elb deregister-instances-from-load-balancer --load-balancer-name $load_balalncer_name --instances $ID
+echo "De-registring the load balancer please wait.....
+wait
+echo "Load balancer is de-registered."
+
 # Terminating instances
 aws ec2 wait terminate-instances --instance-ids $ID
 echo "Instances Terminating please wait......."
 
-# De-register the instances form the load balancer
-aws elb describe-load-balancers --load-balancer-name $load_balalncer_name  --query 'Reservations[*].Instances[*].[Placement.AvailabilityZone,State.Name,InstanceId]'
-echo "De-registring the load balancer please wait....."
-wait
-echo "Load balancer is de-registered."
-
-
 # Detach autoscaling load balancer
-aws autoscaling detach-load-balancers --load-balancer-names ITMO-444-sudu --auto-scaling-group-name ITMO444
+aws autoscaling detach-load-balancers --load-balancer-names $load_balancer_name --auto-scaling-group-name $autoscaling_group
 echo "Detaching load blalancer please wait......."
-wait
 echo "Load balancer is detached"
 
 # Deleting autoscaling group
-aws autoscaling delete-auto-scaling-group --auto-scaling-group-name ITMO444
+aws autoscaling delete-auto-scaling-group --auto-scaling-group-name $autoscaling_group
 echo "Deleting auto scaling group please wait........."
-wait
 echo "Auto scaling group deleted."
 
 # Deleting launch configuration 
-aws autoscaling delete-launch-configuration --launch-configuration-name $4
+aws autoscaling delete-launch-configuration --launch-configuration-name $launch_configuration
 echo "Deleting launch configuration please wait........"
 wait
 echo "Launch configuration deleted."
 
 #Deleting load balancer
-aws elb delete-load-balancer --load-balancer-name ITMO-444-sudu
+aws elb delete-load-balancer --load-balancer-name $load_balancer_name
 echo "Load balancer deleted"
 
 #delete db instances
