@@ -1,17 +1,24 @@
 #!/bin/bash
 
-# Terminating instances
-aws autoscaling terminate-instance-in-auto-scaling-group --auto-scaling-group-name ITMO444 --termination-policies "Default, NewestInstance" 
+ID='aws autoscaling describe-auto-scaling-instances --query 'AutoScalingInstances[].InstanceId''
+echo "Instance ID: " $ID
+load_balancer_name='aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].LoadBalancerName''
+echo "Load Balancer Name: "$load_balancer_name
+autoscaling_group='aws autoscaling describe-auto-scaling-groups --query 'AutoScalingGroups[*].AutoScalinGroupsName''
+echo "Auto Scaling Group Name: " $autoscaling_group
+launch_confiuration='aws autoscaling describe-launch-configurations --query 'LaunchConfigurations[*].LaunchConfigurationName''
+echo "Launch Confiuragration Name: " $launch_configuration
 
-#Register instances from load balancer
-#aws autoscaling update-auto-scaling-group --auto-scaling-group-name ITMO444 --min-size 0 --max-size 5 --desired-capacity 1
+# Terminating instances
+aws ec2 wait terminate-instances --instance-ids $ID
+echo "Instances Terminating please wait......."
 
 # De-register the instances form the load balancer
-aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Placement.AvailabilityZone,State.Name,InstanceId]' | grep us-west-2b |grep running| grep pending| awk '{print $3}'
-#aws elb deregister-instances-from-load-balancer --load-balancer-name ITMO-444-sudu --instances $ID
+aws elb describe-load-balancers --load-balancer-name $load_balalncer_name  --query 'Reservations[*].Instances[*].[Placement.AvailabilityZone,State.Name,InstanceId]'
 echo "De-registring the load balancer please wait....."
 wait
 echo "Load balancer is de-registered."
+
 
 # Detach autoscaling load balancer
 aws autoscaling detach-load-balancers --load-balancer-names ITMO-444-sudu --auto-scaling-group-name ITMO444
