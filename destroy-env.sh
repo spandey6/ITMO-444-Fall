@@ -2,12 +2,18 @@
 
 Id='aws autoscaling describe-auto-scaling-instances --query 'AutoScalingInstances[].InstanceId''
 echo "Instance ID: " $Id
+
 load_balancer='aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].LoadBalancerName''
 echo "Load Balancer Name: "$load_balancer
+
 autoscaling='aws autoscaling describe-auto-scaling-groups --query 'AutoScalingGroups[*].AutoScalinGroupsName''
 echo "Auto Scaling Group Name: " $autoscaling
+
 launch_confiuration='aws autoscaling describe-launch-configurations --query 'LaunchConfigurations[*].LaunchConfigurationName''
 echo "Launch Confiuragration Name: " $launch_configuration
+
+db_instance=`aws rds describe-db-instances --query 'DBInstances[*].DBInstanceIdentifier'`
+echo "Database instances id: "$db_instance
 
 # De-register the instances form the load balancer
 aws elb deregister-instances-from-load-balancer --load-balancer-name $load_balalncer --instances $Id
@@ -39,7 +45,7 @@ aws elb delete-load-balancer --load-balancer-name $load_balancer
 echo "Load balancer deleted"
 
 #delete db instances
-#aws rds delete-db-instance --skip-final-snapshot --db-instance-identifier $db-id-for-instance
-#aws rds wait db-instance-deleted --db-instance-identifier $db-id-for-instance
-#echo "Database deleted"
+aws rds delete-db-instance --skip-final-snapshot --db-instance-identifier $db_instance
+aws rds wait db-instance-deleted --db-instance-identifier $db_instance
+echo "Database deleted"
 echo "Done"
