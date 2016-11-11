@@ -15,6 +15,9 @@ echo "Launch Confiuragration Name: " $launch_configuration
 db_instance=`aws rds describe-db-instances --query 'DBInstances[*].DBInstanceIdentifier'`
 echo "Database instances id: "$db_instance
 
+bucket='aws s3api list-buckets --query 'Buckets[].Name''
+echo "List S3 buckets: " $bucket
+
 # De-register the instances form the load balancer
 aws elb deregister-instances-from-load-balancer --load-balancer-name $load_balalncer --instances $Id
 echo "De-registring the load balancer please wait....."
@@ -48,4 +51,8 @@ echo "Load balancer deleted"
 aws rds delete-db-instance --skip-final-snapshot --db-instance-identifier $db_instance
 aws rds wait db-instance-deleted --db-instance-identifier $db_instance
 echo "Database deleted"
+
+#Delete S3 buckets
+aws s3api delete-bucket --bucket $bucket --region us-west-2b
+echo "S3 bucket deleted."
 echo "Done"
