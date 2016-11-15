@@ -53,6 +53,7 @@ aws rds wait db-instance-deleted --db-instance-identifier $db_instance
 echo "Database deleted"
 
 #Delete S3 buckets
-aws s3 rm s3://$bucket
+aws s3 rb s3://raw-spd --force
+aws s3 rb s3://finished-spd --force
 echo "S3 bucket deleted."
 echo "Done"
