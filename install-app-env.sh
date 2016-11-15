@@ -13,11 +13,11 @@ aws sns create-topic --name sudu
 echo "sns topic created"
 
 #Subscribing sns topic
-#aws sns subscribe --topic -arn  --protocol sms --notification-endpoint 7735171580
+aws sns subscribe --topic-arn arn:aws:sns:us-west-2:839071323477:sudu:c89d079f-8588-4a75-b6b1-4ebe59e2c305 --protocol email --notification-endpoint spandey6@hawk.iit.edu
 
-#Create sqs queus
-#aws sqs create-queue --queue-name ITMO444 --attribites file://create-queue.text
+#Create sqs queue
+aws sqs create-queue --queue-name ITMO444 --attribites file://create-queue.json
 
 #Create S3 buckets
-aws s3api create-bucket --bucket $first_bucket --region us-west-2b
-aws s3api create-bucket --bucket $second_bucket --region us-west-2b
+aws s3 mb s3://$first_bucket
+aws s3 mb s3://$second_bucket
