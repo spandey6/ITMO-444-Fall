@@ -1,13 +1,14 @@
 #!/bin/bash
 
-if [ $# != 7 ]; then
+if [ $# != 6 ]; then
 echo "Parameters are missing"
-#echo-n "The parameter should be in a format showen below."
-#echo-n "1.AMI ID:ami-ami-1fed4c7f"
-#echo-n "2.KEY-NAME:spandey"
-#echo-n "3.SECURITY-GROUP: sg-0e14c377"
-#echo-n "4.LAUNCH-CONFIGURATION: ITMO-444-hw4"
-#echo-n "5.COUNT: Number os instances
+#echo "The parameter should be in a format showen below."
+#echo "1.AMI ID:ami-ami-1fed4c7f"
+#echo "2.KEY-NAME:spandey"
+#echo "3.SECURITY-GROUP: sg-0e14c377"
+#echo "4.LAUNCH-CONFIGURATION: ITMO-444-hw4"
+#echo "5.COUNT: Number os instances"
+#echo "6. Load Balancer name"
 exit 0
 else
 echo "All the parameters are preseent."
