@@ -1,25 +1,16 @@
 <?php
-$servername = "localhost"
-$dbname = "school"
+//connection
+$link= mysqli_connect("put some data") or die ("Error " . mysqli_error($link))
 
-//create connection
-$conn = new mysqli($servernanme, $dbname);
-//check connection
-if ($conn_error) {
-	die("Connection failed: " . $conn->connect_error);
-}
+echo "Results is below" . $link;
+
 //sql to create a table
 $sql = "CREATE TABLE Students (
-Id INT() PRIMARY KEY,
-Name VARCHAR(255) NOT NULL,
+Id INT NOT NULL AUTO_INCREAMENT PRIMARY KEY,
+Name VARCHAR(255),
 Age INT(3) 
 )";
-if ($conn->query($sql) === TRUE {
-	echo "Table Students created successfully";
-}
-else {
-	echo "Error creating table: " . $conn->error;
-}
-$conn->close();
+
+$link->query($sql);
 
 ?>
