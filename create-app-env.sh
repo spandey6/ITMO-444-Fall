@@ -19,5 +19,6 @@ aws sns subscribe --topic-arn arn:aws:sns:us-west-2:839071323477:sudu:c89d079f-8
 aws sqs create-queue --queue-name ITMO444 --attribites file://create-queue.json
 
 #Create S3 buckets
-aws s3 mb s3://$first_bucket
-aws s3 mb s3://$second_bucket
+aws s3 mb s3://raw-spd
+aws s3 mb s3://finished-spd
+aws cp --acl public-read switchonarex.png s3://raw-spd
