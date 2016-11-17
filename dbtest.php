@@ -1,4 +1,4 @@
-?php
+<?php
 //connection
 require 'vendor/autoload.php';
 
@@ -31,11 +31,12 @@ Id INT NOT NULL AUTO_INCREAMENT PRIMARY KEY,
 Name VARCHAR(255),
 Age INT(3)
 )";
-INSERT INTO students VALUES(1,'Mark','24');
-INSERT INTO students VALUES(1,'Alex','23');
-INSERT INTO students VALUES(1,'Hari','24');
-INSERT INTO students VALUES(1,'Kevin','20');
-INSERT INTO students VALUES(1,'Ganesh','28');
+
+INSERT INTO students VALUES('Mark','24');
+INSERT INTO students VALUES('Alex','23');
+INSERT INTO students VALUES('Hari','24');
+INSERT INTO students VALUES('Kevin','20');
+INSERT INTO students VALUES('Ganesh','28');
 
 $create_tbl = $link->query($create_table);
 if ($create_table) { 
