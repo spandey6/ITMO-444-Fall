@@ -13,8 +13,8 @@ aws sns create-topic --name sudu
 echo "sns topic created"
 
 #Subscribing sns topic
-aws sns subscribe --topic-arn arn:aws:sns:us-west-2:839071323477:sudu:c89d079f-8588-4a75-b6b1-4ebe59e2c305 --protocol email --notification-endpoint spandey6@hawk.iit.edu
-
+aws sns subscribe --topic-arn arn:aws:sns:us-west-2:839071323477:sudu --protocol email --notification-endpoint spandey6@hawk.iit.edu
+aws sns add-lermission --topic-arn arn:aws:sns:us-west-2:839071323477:sudu --label S3notification --aws-accoint-id spandey6@hawk.iit.edu --acount-name Publish
 #Create sqs queue
 aws sqs create-queue --queue-name ITMO444 --attribites file://create-queue.json
 
