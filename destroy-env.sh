@@ -52,8 +52,11 @@ aws rds delete-db-instance --skip-final-snapshot --db-instance-identifier $db_in
 aws rds wait db-instance-deleted --db-instance-identifier $db_instance
 echo "Database deleted"
 
+#delete sns topic
+aws sns delete-topic  --topic-arn arn:aws:sns:us-west-2:839071323477:sudu
+
 #Delete S3 buckets
 aws s3 rb s3://raw-spd --force
 aws s3 rb s3://finished-spd --force
 echo "S3 bucket deleted."
-echo "Done"
+echo "All Done"
