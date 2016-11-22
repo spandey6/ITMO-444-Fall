@@ -49,7 +49,7 @@ $rdsresult = $rdsclient->describeDBInstances([
 $endpoint = $rdsresult['DBInstances'][0]['Endpoint']['Address'];
 echo $endpoint . "\n";
 
-$link = mysqli_connect($endpoint,"controller","ilovebunnies","inclass") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"host","letmein","spandey") or die("Error " . mysqli_error($link));
 
 /* check connection */
 if (mysqli_connect_errno()) {
@@ -59,13 +59,13 @@ if (mysqli_connect_errno()) {
 
 // code to insert new record
 /* Prepared statement, stage 1: prepare */
-if (!($stmt = $link->prepare("INSERT INTO items(id, email) VALUES (NULL,?)"))) {
-    echo "Prepare failed: (" . $stmt->errno . ") " . $stmt->error;
+if (!($stmt = $link->prepare("INSERT INTO records (id, email, phone, s3-raw-url, s3-finished-url, status,reciept) VALUES (NULL,?,?,?,?,?,?)"))) {
+    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 }
 $email=$_SESSION['email'];
 
 // prepared statements will not accept literals (pass by reference) in bind_params, you need to declare variables
-$stmt->bind_param("sii",$email);
+$stmt->bind_param("ssssii",$email,$phone,$s3-raw-url,$s3-finsihed-url,$status,$reciept);
 
 if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
