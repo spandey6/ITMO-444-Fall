@@ -44,18 +44,25 @@ $rdsclient = new Aws\Rds\RdsClient([
     'version'           => 'latest'
 ]);
 $rdsresult = $rdsclient->describeDBInstances([
-    'DBInstanceIdentifier' => 'spandey'
+    'DBInstanceIdentifier' => 'spandey',
 ]);
 $endpoint = $rdsresult['DBInstances'][0]['Endpoint']['Address'];
 echo $endpoint . "\n";
 
-$link = mysqli_connect($endpoint,"host","letmein","spandey") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"root","letmein","spandey") or die("Error " . mysqli_error($link));
 
 /* check connection */
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
+$username = $_POST['username'];
+$email = $_POST['useremail'];
+$phone = $_POST['phone'];
+$raws3url = $Rawurl;
+$finisheds3url = "none";
+$filename = basename($_FILES['userfile']['name']);
+$status =0;
 
 // code to insert new record
 /* Prepared statement, stage 1: prepare */
