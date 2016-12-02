@@ -59,4 +59,4 @@ aws sns delete-topic  --topic-arn arn:aws:sns:us-west-2:839071323477:sudu
 aws s3 rb s3://raw-spd --force
 aws s3 rb s3://finished-spd --force
 echo "S3 bucket deleted."
-echo "All Done"
+echo "Environment destroyed"
