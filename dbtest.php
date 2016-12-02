@@ -1,23 +1,36 @@
 <?php
 //connection
-require 'vendor/autoload.php';
+require '/var/www/html/vendor/autoload.php';
 
 
-$client = new Aws\Rds\RdsClient([
+$rds = new Aws\Rds\RdsClient([
   'region'            => 'us-west-2',
     'version'           => 'latest'
 ]);
 
 
-$result = $client->describeDBInstances([
-    'DBInstanceIdentifier' => 'inclass-544'
+$result = $rds->describeDBInstances([
+	'AllocatedStorage' => 10,
+	'DBInstanceClass' => 'db.t1.micro',
+    	'DBInstanceIdentifier' => 'fp-spd-db',
+	'DBName' => 'spandeydb',
+    	'Engine' => 'MySQL', // REQUIRD
+    	'MasterUserPassword' => 'letmein',
+    	'MasterUsername' => 'controller',
+    	'PubliclyAccessible' => true,
+]);
+$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'fp-spd-db',
 ]);
 
+#Creating the table
+$result = $rds->describeDBInstances([
+    'DBInstanceIdentifier' => 'fp-spd-db',
+]);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 echo $endpoint . "\n";
 
-$link = mysqli_connect($endpoint,"controller","ilovebunnies","inclass") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein","fp-spd-db") or die("Error " . mysqli_error($link));
 
 /* check connection */
 if (mysqli_connect_errno()) {
@@ -26,25 +39,18 @@ if (mysqli_connect_errno()) {
 }
 
 //sql to create a table
-$sql = "CREATE TABLE students (
-Id INT NOT NULL AUTO_INCREAMENT PRIMARY KEY,
-Name VARCHAR(255),
-Age INT(3)
+$sql = "CREATE TABLE comments  
+(
+ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Uname VARCHAR(20),
+Email VARCHAR(20),
+Phone VARCHAR(20),
+RawS3url VARCHAR(256),
+FinishedS3url VARCHAR(256),
+Filename VARCHAR(256),
+State TINYINT(3),
+Datetime timestamp 
 )";
-
-INSERT INTO students VALUES('Mark','24');
-INSERT INTO students VALUES('Alex','23');
-INSERT INTO students VALUES('Hari','24');
-INSERT INTO students VALUES('Kevin','20');
-INSERT INTO students VALUES('Ganesh','28');
-
-$create_tbl = $link->query($create_table);
-if ($create_table) { 
-        echo "Table is created or No error returned.";
-}        
-else {    
-        echo "error!!";  
-}       
 
 $link->close();
       
