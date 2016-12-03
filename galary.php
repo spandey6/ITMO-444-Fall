@@ -5,18 +5,21 @@
 <h1> Galary Images </h1>
 
 <?php
-require 'vendor/autoload.php';
 
 #show the images uploaded by the user
 session_start();
 $email = $_POST["email"];
+$_SESSION['email'] = $_POST['email'];
 echo "Your email is: " .  $email;
+require 'vendor/autoload.php';
 
+//Database connection
 $rds = new Aws\Rds\RdsClient([
 'version' => 'latest',
 'region' => 'us-west-2'
 ]);
 
+//get database from the instance
 $result - $rds->describeDBInstances([
 'DBInstanceIdentifier' => 'fp-spd-db',
 ]);
@@ -30,6 +33,7 @@ if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
+
 mysqli_query($link, "SELECT * FROM comments WHERE email = '$email'");
 $results = $link->insert_id;
 $query = "SELECT * FROM comments WHERE email = '$email'";
