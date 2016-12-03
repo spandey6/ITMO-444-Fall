@@ -20,4 +20,5 @@ php composer.phar require aws/aws-sdk-php
 sudo cd /var/www/html
 sudo mv home/ubuntu/vendor /var/www/html
 
+sudo service apache2 restart
 
