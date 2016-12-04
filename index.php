@@ -1,6 +1,11 @@
 <?php 
 session_start();
 
+//database connection
+echo "This is my database"
+$link = mysquli_connect("fp-spd-db","controller","letmein","3306") or die("Error " . mysquli_error($link));
+
+echo "Here is your result: " .$link;
  ?>
 <html>
 <head><title>Welcome</title>
@@ -14,15 +19,9 @@ session_start();
     <!-- Name of input element determines name in $_FILES array -->
 	Send this file: <input name="userfile" type="file" /><br />
 	Enter Email of user: <input type="email" name="email"><br />
-	Enter Phone of user (1-XXX-XXX-XXXX): <input type="phone" name="phone">
+
 	<input type="submit" value="Send File" />
 </form>
 <hr />
-<!-- The data encoding type, enctype, MUST be specified as below -->
-<form enctype="multipart/form-data" action="welcome.php" method="POST">
-    
-Enter Email of user for gallery to browse: <input type="email" name="email">
-<input type="submit" value="Load Gallery" />
-</form>
 </body>
 </html>
