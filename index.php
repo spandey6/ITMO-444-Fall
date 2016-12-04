@@ -1,11 +1,6 @@
 <?php 
 session_start();
 
-//database connection
-echo "This is my database"
-$link = mysquli_connect("fp-spd-db","controller","letmein","3306") or die("Error " . mysquli_error($link));
-
-echo "Here is your result: " .$link;
  ?>
 <html>
 <head><title>Welcome</title>
