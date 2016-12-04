@@ -44,12 +44,12 @@ $rdsclient = new Aws\Rds\RdsClient([
     'version'           => 'latest'
 ]);
 $rdsresult = $rdsclient->describeDBInstances([
-    'DBInstanceIdentifier' => 'spandey',
+    'DBInstanceIdentifier' => 'fp-spd-db',
 ]);
 $endpoint = $rdsresult['DBInstances'][0]['Endpoint']['Address'];
 echo $endpoint . "\n";
 
-$link = mysqli_connect($endpoint,"root","letmein","spandey") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein","fp-spd-db") or die("Error " . mysqli_error($link));
 
 /* check connection */
 if (mysqli_connect_errno()) {
@@ -57,22 +57,22 @@ if (mysqli_connect_errno()) {
     exit();
 }
 $username = $_POST['username'];
-$email = $_POST['useremail'];
-$phone = $_POST['phone'];
-$raws3url = $Rawurl;
-$finisheds3url = "none";
-$filename = basename($_FILES['userfile']['name']);
+$email = $_SESSION['email'];
+$phone = '7735171580';
+$finisheds3url = ' ';
+$issubscribed=0;
+$receipt=md5($url);
 $status =0;
 
 // code to insert new record
 /* Prepared statement, stage 1: prepare */
-if (!($stmt = $link->prepare("INSERT INTO records (id, email, phone, s3-raw-url, s3-finished-url, status,reciept) VALUES (NULL,?,?,?,?,?,?)"))) {
+if (!($stmt = $link->prepare("INSERT INTO records (id, email, phone, s3-raw-url, s3-finished-url, status,reciept,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)"))) {
     echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 }
 $email=$_SESSION['email'];
 
 // prepared statements will not accept literals (pass by reference) in bind_params, you need to declare variables
-$stmt->bind_param("ssssii",$email,$phone,$s3-raw-url,$s3-finsihed-url,$status,$reciept);
+$stmt->bind_param("ssssii",$email,$phone,$s3-raw-url,$s3-finsihed-url,$status,$reciept,$issubscribed);
 
 if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
