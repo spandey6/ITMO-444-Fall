@@ -1,6 +1,6 @@
 #!/bin/bash
 
-Id='aws autoscaling describe-auto-scaling-instances --query 'AutoScalingInstances[].InstanceId''
+Id=`aws ec2 describe-instances --query 'Reservations[*].Instances[].InstanceId'`
 echo "Instance ID: " $Id
 
 load_balancer='aws elb describe-load-balancers --query 'LoadBalancerDescriptions[*].LoadBalancerName''
