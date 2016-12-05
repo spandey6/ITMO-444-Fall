@@ -5,7 +5,7 @@ session_start();
 <html>
 <head><title>Upload page</title></head>
 <body>
-<h1> Hello World</h1>
+<h1> Uploading the files</h1>
 
 
 <form enctype="multipart/form-data" action="uploader.php" method="POST">
