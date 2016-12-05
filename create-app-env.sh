@@ -1,8 +1,7 @@
 #!/bin/bash
 
 #Create db instances 
-aws rds create-db-instance --db-instance-identifier fp-spn-db --allocated-storage 10 --db-instance-class db.t2.micro --engine mysql --master-username controller --master-user-password letmein --publicly accessible
-
+aws rds create-db-instance --db-instance-identifier fp-spn-db --allocated-storage 10 --db-instance-class db.m1.small --engine mysql --master-username controller --master-user-password letmein55 --publicly-accessible
 db_instance='aws rds describe-db-instances --query 'DBInstances[*].DBInstanceIdentifier''
 echo "Your database instance id is: "$db_instance
 
