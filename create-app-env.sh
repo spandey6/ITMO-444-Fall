@@ -20,8 +20,17 @@ aws sqs create-queue --queue-name ITMO444
 #Create S3 buckets
 aws s3 mb s3://raw-spd
 aws s3 mb s3://finished-spd
-aws cp --acl public-read switchonarex.png s3://raw-spd
 
+#upload the pictures in your raw bucket
+aws s3 cp switchonarex.png s3://raw-spd
+aws s3 cp eartrumpet-bw.png s3://raw-spd
+aws s3 cp mountain-bw.jpg s3://raw-spd
+aws s3 cp Knuth-bw.jpg s3://raw-spd
+
+#upload pictures in your finished bucket
+aws s3 cp eartrumpet.png s3://finished-spd
+aws s3 cp knuth.jpg s3://finished-spd
+aws s3 cp mountain.jpg s3://finished-spd
 #Describe db instances
 declare -a dbinstance
 DBINSTANCEIN=(`aws rds describe-db-instances --output text | grep ENDPOINT | awk {' print $2'}`)
