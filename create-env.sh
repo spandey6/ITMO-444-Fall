@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# != 6 ]; then
+if [ $# != 7 ]; then
 echo "Parameters are missing"
 #echo "The parameter should be in a format showen below."
 #echo "1.AMI ID:ami-ami-1fed4c7f"
