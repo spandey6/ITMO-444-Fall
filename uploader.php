@@ -49,7 +49,7 @@ $rdsresult = $rdsclient->describeDBInstances([
 $endpoint = $rdsresult['DBInstances'][0]['Endpoint']['Address'];
 echo $endpoint . "\n";
 
-$link = mysqli_connect($endpoint,"controller","letmein","fp-spd-db") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein55","fp-spd-db") or die("Error " . mysqli_error($link));
 
 /* check connection */
 if (mysqli_connect_errno()) {
@@ -83,7 +83,7 @@ printf("%d Row inserted.\n", $stmt->affected_rows);
 $stmt->close();
 
 // SELECT *
-$link->real_query("SELECT * FROM items");
+$link->real_query("SELECT * FROM comments");
 $res = $link->use_result();
 
 echo "Result set order...\n";
