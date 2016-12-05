@@ -26,7 +26,7 @@ $result - $rds->describeDBInstances([
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address']
 
 //Database begins
-$link = mysqli_connect($endpoint, "controller","letmein","fp-spd-db") or die("Error" .mysqli_error($link));
+$link = mysqli_connect($endpoint, "controller","letmein55","fp-spd-db") or die("Error" .mysqli_error($link));
 
 //Check connection 
 if (mysqli_connect_errno()) {
